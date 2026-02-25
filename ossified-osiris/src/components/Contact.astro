@@ -1,0 +1,56 @@
+---
+import { contact, footer } from "../data/portfolio";
+---
+
+<section
+	id="contact"
+	class="section-padding reveal"
+>
+	<div class="mx-auto max-w-6xl px-6">
+		<!-- Section header -->
+		<div class="reveal-child mb-12">
+			<p class="font-sans text-xs tracking-widest uppercase text-muted mb-2">Get in touch</p>
+			<h2 class="blur-in font-sans text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-paper leading-tight">
+				Let's create something<br />
+				<span class="text-accent">amazing together.</span>
+			</h2>
+		</div>
+
+		<div class="glass-container px-8 py-10 md:px-12 md:py-14 space-y-10">
+			<!-- Description -->
+			<p class="blur-in text-base md:text-lg text-paper/60 font-sans max-w-xl leading-relaxed" style="--blur-delay: 200ms">
+				{contact.body}
+			</p>
+
+			<!-- Email CTA -->
+			<a
+				href={`mailto:${contact.email}`}
+				class="reveal-child group flex items-center justify-between py-6 border-y border-neutral-800/30 hover:border-accent/30 transition-colors"
+			>
+				<span class="font-sans text-xl sm:text-2xl md:text-3xl font-medium tracking-tight text-paper group-hover:text-accent transition-colors">
+					{contact.email}
+				</span>
+				<span class="hidden sm:inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-muted group-hover:text-accent transition-colors">
+					Send email
+					<svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+					</svg>
+				</span>
+			</a>
+
+			<!-- Social links -->
+			<div class="reveal-child flex flex-wrap gap-4">
+				{footer.socials.map((item) => (
+					<a
+						href={item.href}
+						target="_blank"
+						rel="noreferrer"
+						class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-neutral-800/30 text-xs font-mono tracking-widest uppercase text-muted hover:border-accent hover:text-accent transition-colors"
+					>
+						{item.label}
+					</a>
+				))}
+			</div>
+		</div>
+	</div>
+</section>

@@ -1,0 +1,38 @@
+---
+import { footer } from "../data/portfolio";
+---
+
+<footer class="glass-navbar py-8">
+	<div class="mx-auto max-w-6xl px-6">
+		<div class="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+			<!-- Brand -->
+			<a href="#top" class="font-sans font-bold text-lg tracking-tight text-paper hover:text-accent transition-colors">
+				VT<span class="text-accent">.</span>
+			</a>
+
+			<!-- Nav links -->
+			<nav class="flex flex-wrap gap-6 text-xs font-sans tracking-widest uppercase text-muted">
+				<a href="#about" class="hover:text-paper transition-colors">About</a>
+				<a href="#work" class="hover:text-paper transition-colors">Work</a>
+				<a href="#stack" class="hover:text-paper transition-colors">Skills</a>
+				<a href="#contact" class="hover:text-paper transition-colors">Contact</a>
+			</nav>
+
+			<!-- Social links -->
+			<div class="flex flex-wrap gap-4 text-xs font-mono uppercase tracking-widest text-muted">
+				{footer.socials.map((item) => (
+					<a href={item.href} target="_blank" rel="noreferrer" class="hover:text-accent transition-colors">
+						{item.label}
+					</a>
+				))}
+			</div>
+		</div>
+
+		<!-- Copyright -->
+		<div class="mt-8 pt-6 border-t border-neutral-800/30">
+			<p class="text-xs font-mono text-muted/50 text-center">
+				&copy; {new Date().getFullYear()} {footer.copyrightName}. All rights reserved.
+			</p>
+		</div>
+	</div>
+</footer>

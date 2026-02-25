@@ -1,0 +1,752 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Theme toggle icon visibility ─────────────────────── */
+/* Dark mode (default): show sun, hide moon */
+.theme-icon-moon {
+  display: none;
+}
+
+.theme-icon-sun {
+  display: block;
+}
+
+/* Light mode: show moon, hide sun */
+[data-theme="light"] .theme-icon-sun {
+  display: none;
+}
+
+[data-theme="light"] .theme-icon-moon {
+  display: block;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) .theme-icon-sun {
+    display: none;
+  }
+
+  :root:not([data-theme]) .theme-icon-moon {
+    display: block;
+  }
+}
+
+/* Base – Bold Typography system */
+html,
+body {
+  min-height: 100%;
+}
+
+:root {
+  /* Dark theme (default) */
+  --color-bg: 10 10 10;
+  --color-text: 250 250 250;
+  --color-muted: 115 115 115;
+  --color-accent: 255 61 0;
+
+  /* Glassmorphism – dark */
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --glass-navbar-bg: rgba(10, 10, 10, 0.35);
+  --glass-navbar-border: rgba(255, 255, 255, 0.08);
+  --glass-navbar-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+
+  /* Blob Colors - Dark Theme (Default) */
+  --blob-color-0: #ff8c1a;
+  --blob-color-1: #ff1ad4;
+  --blob-color-2: #7a1aff;
+  --blob-color-3: #ff5577;
+  --blob-color-4: #5c1aff;
+}
+
+[data-theme="light"] {
+  --color-bg: 250 250 250;
+  --color-text: 10 10 10;
+  --color-muted: 120 120 120;
+  --color-accent: 200 40 0;
+
+  /* Glassmorphism – light */
+  --glass-bg: rgba(255, 255, 255, 0.3);
+  --glass-border: rgba(200, 200, 200, 0.35);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+  --glass-navbar-bg: rgba(255, 255, 255, 0.5);
+  --glass-navbar-border: rgba(200, 200, 200, 0.3);
+  --glass-navbar-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+
+  /* Blob Colors - Light Theme (Ultra Vivid / Neon) */
+  --blob-color-0: #ff2200;
+  /* Neon Red-Orange */
+  --blob-color-1: #ff00e5;
+  /* Hot Neon Pink */
+  --blob-color-2: #7700ff;
+  /* Electric Purple */
+  --blob-color-3: #ff0044;
+  /* Neon Crimson */
+  --blob-color-4: #0055ff;
+  /* Neon Blue */
+}
+
+/* Auto-detect when no data-theme is set */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    --color-bg: 250 250 250;
+    --color-text: 10 10 10;
+    --color-muted: 120 120 120;
+    --color-accent: 200 40 0;
+
+    --glass-bg: rgba(255, 255, 255, 0.3);
+    --glass-border: rgba(200, 200, 200, 0.35);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+    --glass-navbar-bg: rgba(255, 255, 255, 0.5);
+    --glass-navbar-border: rgba(200, 200, 200, 0.3);
+    --glass-navbar-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+  }
+}
+
+body {
+  @apply bg-void text-paper antialiased;
+}
+
+/* ── Glassmorphism utilities ────────────────────────────── */
+.glass-navbar {
+  background: var(--glass-navbar-bg);
+  border-bottom: 1px solid var(--glass-navbar-border);
+  box-shadow: var(--glass-navbar-shadow);
+  -webkit-backdrop-filter: blur(12px) saturate(1.8);
+  backdrop-filter: blur(12px) saturate(1.8);
+}
+
+.glass-container {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  -webkit-backdrop-filter: blur(20px) saturate(1.8);
+  backdrop-filter: blur(20px) saturate(1.8);
+  border-radius: 12px;
+  transition: background 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.glass-container:hover {
+  --glass-border: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.55);
+}
+
+[data-theme="light"] .glass-container:hover {
+  --glass-border: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.08);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) .glass-container:hover {
+    --glass-border: rgba(255, 255, 255, 0.35);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.08);
+  }
+}
+
+
+/* Typographic helpers */
+.caps-meta {
+  @apply font-mono text-[0.7rem] tracking-[0.18em] text-muted;
+}
+
+.section-padding {
+  @apply py-32 md:py-40;
+}
+
+/* ── Scroll-triggered reveal animations ────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Exit animations (scroll-out) ──────────────────────── */
+.reveal.is-exiting {
+  opacity: 0;
+  transform: translateY(-30px) scale(0.97);
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 1, 1),
+    transform 0.5s cubic-bezier(0.4, 0, 1, 1);
+}
+
+/* Staggered children: each child fades/slides up with cascading delay */
+.reveal-child {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--delay, 0ms);
+}
+
+.is-visible .reveal-child {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.is-exiting .reveal-child {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 1, 1),
+    transform 0.4s cubic-bezier(0.4, 0, 1, 1);
+}
+
+/* Direction variants */
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--delay, 0ms);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--delay, 0ms);
+}
+
+.is-visible .reveal-left,
+.is-visible .reveal-right {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.is-exiting .reveal-left {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 1, 1),
+    transform 0.4s cubic-bezier(0.4, 0, 1, 1);
+}
+
+.is-exiting .reveal-right {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 1, 1),
+    transform 0.4s cubic-bezier(0.4, 0, 1, 1);
+}
+
+/* Hero-specific: text clip animation for dramatic entrance */
+.reveal-hero {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--delay, 0ms);
+}
+
+.is-visible .reveal-hero {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Legacy support */
+.fade-section {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 500ms ease-out, transform 500ms ease-out;
+}
+
+.fade-section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Clip-Path Reveal Animations ───────────────────────── */
+
+/* Circular reveal: expands from center */
+.clip-circle {
+  clip-path: circle(0% at 50% 50%);
+  transition: clip-path 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.clip-circle.is-visible {
+  clip-path: circle(100% at 50% 50%);
+}
+
+.clip-circle.is-exiting {
+  clip-path: circle(0% at 50% 50%);
+  transition: clip-path 0.6s cubic-bezier(0.4, 0, 1, 1);
+}
+
+/* Wipe from left to right */
+.clip-wipe {
+  clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  transition: clip-path 1s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.clip-wipe.is-visible {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.clip-wipe.is-exiting {
+  clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+  transition: clip-path 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* Diagonal reveal: dramatic angular wipe */
+.clip-diagonal {
+  clip-path: polygon(0 0, 0 0, 0 0, 0 0);
+  transition: clip-path 1s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.clip-diagonal.is-visible {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.clip-diagonal.is-exiting {
+  clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+  transition: clip-path 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* Image reveal with color overlay wipe */
+.img-reveal {
+  position: relative;
+  overflow: hidden;
+}
+
+.img-reveal::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgb(var(--color-accent));
+  transform-origin: right;
+  transform: scaleX(1);
+  transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1) 0.2s;
+  z-index: 2;
+}
+
+.img-reveal.is-visible::after {
+  transform: scaleX(0);
+}
+
+.img-reveal.is-exiting::after {
+  transform-origin: left;
+  transform: scaleX(1);
+  transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* ── Split Text Animation (Per Character) ─────────────── */
+[data-split-text] {
+  overflow: hidden;
+}
+
+[data-split-text] .split-char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(100%) rotateX(25deg);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--char-delay, 0ms);
+}
+
+/* Whitespace character needs width */
+[data-split-text] .split-char.is-space {
+  width: 0.3em;
+}
+
+.is-visible [data-split-text] .split-char,
+[data-split-text].is-visible .split-char {
+  opacity: 1;
+  transform: translateY(0) rotateX(0deg);
+}
+
+.is-exiting [data-split-text] .split-char,
+[data-split-text].is-exiting .split-char {
+  opacity: 0;
+  transform: translateY(-80%) rotateX(-15deg);
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 1, 1),
+    transform 0.3s cubic-bezier(0.4, 0, 1, 1);
+}
+
+/* ── Word-by-Word Masked Reveal ───────────────────────── */
+[data-word-reveal] {
+  overflow: hidden;
+}
+
+[data-word-reveal] .word-wrap {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: 0.08em;
+}
+
+[data-word-reveal] .word-inner {
+  display: inline-block;
+  transform: translateY(105%);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--word-delay, 0ms);
+}
+
+.is-visible [data-word-reveal] .word-inner,
+[data-word-reveal].is-visible .word-inner {
+  transform: translateY(0);
+}
+
+.is-exiting [data-word-reveal] .word-inner,
+[data-word-reveal].is-exiting .word-inner {
+  transform: translateY(-105%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 1, 1);
+}
+
+/* ── Highlight Sweep Animation ────────────────────────── */
+[data-highlight-sweep] {
+  background-image: linear-gradient(90deg,
+      rgba(var(--color-accent), 0.12) 0%,
+      rgba(var(--color-accent), 0.12) 100%);
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  background-position: 0 0;
+  transition: background-size 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--sweep-delay, 0ms);
+  padding: 0.05em 0;
+  border-radius: 4px;
+}
+
+.is-visible [data-highlight-sweep],
+[data-highlight-sweep].is-visible {
+  background-size: 100% 100%;
+}
+
+.is-exiting [data-highlight-sweep],
+[data-highlight-sweep].is-exiting {
+  background-size: 0% 100%;
+  background-position: 100% 0;
+  transition: background-size 0.5s cubic-bezier(0.4, 0, 1, 1);
+}
+
+/* ── Stagger Grid Wave Card Animation ─────────────────── */
+.wave-card {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--wave-delay, 0ms);
+}
+
+.wave-card.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.wave-card.is-exiting {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+/* ── Blur-In Text Animation ───────────────────────────── */
+.blur-in {
+  opacity: 0;
+  filter: blur(12px);
+  transform: translateY(8px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--blur-delay, 0ms);
+}
+
+.is-visible .blur-in,
+.blur-in.is-visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+}
+
+.is-exiting .blur-in,
+.blur-in.is-exiting {
+  opacity: 0;
+  filter: blur(8px);
+  transform: translateY(-5px);
+  transition-duration: 0.4s;
+}
+
+.gradient-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Individual gradient blob */
+.gradient-blob {
+  position: absolute;
+  width: var(--blob-size, 400px);
+  height: var(--blob-size, 400px);
+  left: var(--blob-x, 50%);
+  top: var(--blob-y, 50%);
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, var(--blob-color, #ff7a00), transparent 80%);
+  filter: blur(var(--blob-blur, 100px));
+  opacity: 0.75;
+  mix-blend-mode: screen;
+  will-change: transform, border-radius;
+  transition:
+    transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    border-radius 1s ease;
+  animation: blob-idle var(--blob-duration, 12s) ease-in-out var(--blob-delay, 0s) infinite alternate;
+}
+
+/* Light mode: blobs need multiply blend + higher opacity on white bg */
+[data-theme="light"] .gradient-blob {
+  mix-blend-mode: multiply;
+  opacity: 1;
+  filter: blur(var(--blob-blur, 50px)) saturate(2);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) .gradient-blob {
+    mix-blend-mode: multiply;
+    opacity: 1;
+    filter: blur(var(--blob-blur, 50px)) saturate(2);
+  }
+}
+
+@keyframes blob-idle {
+  0% {
+    border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+    transform: translate(0, 0) scale(1);
+  }
+
+  25% {
+    border-radius: 60% 40% 55% 45% / 45% 60% 40% 55%;
+  }
+
+  50% {
+    border-radius: 45% 55% 40% 60% / 55% 40% 60% 45%;
+    transform: translate(2%, -3%) scale(1.04);
+  }
+
+  75% {
+    border-radius: 55% 45% 60% 40% / 40% 55% 45% 60%;
+  }
+
+  100% {
+    border-radius: 40% 60% 45% 55% / 60% 45% 55% 40%;
+    transform: translate(-2%, 2%) scale(0.97);
+  }
+}
+
+/* ── Custom Cursor ────────────────────────────────────── */
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background: rgb(var(--color-accent));
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease, background 0.3s ease;
+  will-change: transform;
+}
+
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid rgba(var(--color-accent), 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9997;
+  transform: translate(-50%, -50%);
+  transition: width 0.35s ease, height 0.35s ease, border-color 0.35s ease, opacity 0.35s ease;
+  will-change: transform;
+}
+
+.cursor-dot.is-hovering {
+  width: 48px;
+  height: 48px;
+  background: rgba(var(--color-accent), 0.15);
+  mix-blend-mode: normal;
+}
+
+.cursor-ring.is-hovering {
+  width: 64px;
+  height: 64px;
+  border-color: rgba(var(--color-accent), 0.3);
+}
+
+.cursor-dot.is-hidden,
+.cursor-ring.is-hidden {
+  opacity: 0 !important;
+}
+
+/* Hide custom cursor on touch devices */
+@media (hover: none) and (pointer: coarse) {
+
+  .cursor-dot,
+  .cursor-ring,
+  #cursor-glow {
+    display: none !important;
+  }
+}
+
+/* Orange arrow cursor on desktop */
+@media (hover: hover) {
+  * {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23FF3D00' stroke='%23000' stroke-width='1' d='M5 2l14 10-7 1.5L8.5 21z'/%3E%3C/svg%3E") 5 2, auto !important;
+  }
+
+  a,
+  button,
+  [data-hover],
+  input,
+  textarea,
+  select,
+  label,
+  .glass-container {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23FF3D00' stroke='%23000' stroke-width='1' d='M7 2l10 8.5-5 .5 3 8-2.5 1-3-8L5 16z'/%3E%3C/svg%3E") 7 2, pointer !important;
+  }
+}
+
+/* ── Cursor Glow Trail ────────────────────────────────── */
+#cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9996;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* ── Magnetic Button ──────────────────────────────────── */
+.magnetic {
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ── Parallax Image ───────────────────────────────────── */
+.parallax-wrap {
+  overflow: hidden;
+}
+
+.parallax-img {
+  transition: transform 0.1s linear;
+  will-change: transform;
+}
+
+/* ── Smooth Scroll Body ───────────────────────────────── */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+
+/* ── Page transition overlay ──────────────────────────── */
+.page-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgb(var(--color-bg));
+  transform: scaleY(0);
+  transform-origin: bottom;
+  pointer-events: none;
+}
+
+.page-transition.is-active {
+  animation: page-wipe 0.8s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+@keyframes page-wipe {
+  0% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+
+  50% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+
+  50.01% {
+    transform-origin: top;
+  }
+
+  100% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+}
+
+/* ── Infinite Marquee ─────────────────────────────────── */
+.marquee-container {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.marquee-content {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 40s linear infinite;
+}
+
+.marquee-content:hover {
+  animation-play-state: paused;
+}
+
+.marquee-item {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2rem;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-reverse .marquee-content {
+  animation-direction: reverse;
+}
+
+/* Stroke / outline text for marquee — outer stroke only */
+.marquee-stroke {
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.3);
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+[data-theme="light"] .marquee-stroke {
+  -webkit-text-stroke: 1.5px rgba(0, 0, 0, 0.2);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) .marquee-stroke {
+    -webkit-text-stroke: 1.5px rgba(0, 0, 0, 0.2);
+  }
+}

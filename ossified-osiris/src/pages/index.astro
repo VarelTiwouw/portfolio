@@ -1,0 +1,45 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Preloader from "../components/Preloader.astro";
+import Navbar from "../components/Navbar.astro";
+import Hero from "../components/Hero.astro";
+import Projects from "../components/Projects.astro";
+import About from "../components/About.astro";
+import TechStack from "../components/TechStack.astro";
+import Contact from "../components/Contact.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Layout>
+	<!-- Preloader -->
+	<Preloader />
+
+	<!-- Page transition overlay -->
+	<div class="page-transition" id="page-transition"></div>
+
+	<!-- Custom cursor -->
+	<div class="cursor-dot" id="cursor-dot"></div>
+	<div class="cursor-ring" id="cursor-ring"></div>
+	<canvas id="cursor-glow"></canvas>
+
+	<div class="relative min-h-screen text-paper">
+		<div class="gradient-bg" id="gradient-bg" aria-hidden="true">
+			<div class="gradient-blob" data-blob="0" style="--blob-color:var(--blob-color-0); --blob-size:650px; --blob-x:10%; --blob-y:15%; --blob-blur:100px; --blob-duration:14s; --blob-delay:0s;"></div>
+			<div class="gradient-blob" data-blob="1" style="--blob-color:var(--blob-color-1); --blob-size:580px; --blob-x:50%; --blob-y:8%; --blob-blur:90px; --blob-duration:11s; --blob-delay:1.5s;"></div>
+			<div class="gradient-blob" data-blob="2" style="--blob-color:var(--blob-color-2); --blob-size:700px; --blob-x:85%; --blob-y:45%; --blob-blur:110px; --blob-duration:16s; --blob-delay:3s;"></div>
+			<div class="gradient-blob" data-blob="3" style="--blob-color:var(--blob-color-3); --blob-size:520px; --blob-x:30%; --blob-y:92%; --blob-blur:90px; --blob-duration:13s; --blob-delay:2s;"></div>
+			<div class="gradient-blob" data-blob="4" style="--blob-color:var(--blob-color-4); --blob-size:620px; --blob-x:70%; --blob-y:35%; --blob-blur:100px; --blob-duration:15s; --blob-delay:4s;"></div>
+		</div>
+		<Navbar />
+
+		<main class="pt-20">
+			<Hero />
+			<About />
+			<Projects />
+			<TechStack />
+			<Contact />
+		</main>
+
+		<Footer />
+	</div>
+</Layout>

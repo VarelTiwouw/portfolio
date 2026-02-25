@@ -1,0 +1,49 @@
+---
+import { hero } from "../data/portfolio";
+---
+
+<section
+	id="top"
+	class="relative min-h-screen flex flex-col items-center justify-center text-center px-6"
+>
+	<div class="mx-auto max-w-4xl w-full space-y-8">
+		<!-- Name -->
+		<h1
+			class="reveal-hero blur-in font-sans font-bold text-6xl sm:text-7xl md:text-8xl lg:text-9xl tracking-tighter leading-[0.9]"
+			style="--delay: 200ms; --blur-delay: 200ms"
+		>
+			<span data-scramble>{hero.primaryLine}</span>
+			<br />
+			<span class="text-accent" data-scramble>{hero.accentWord}</span>
+		</h1>
+
+		<!-- Subtitle -->
+		<p
+			class="reveal-hero blur-in font-sans text-lg sm:text-xl md:text-2xl text-muted tracking-tight"
+			style="--delay: 400ms; --blur-delay: 400ms"
+		>
+			{hero.secondaryLine}
+		</p>
+
+		<!-- Description -->
+		<p
+			class="reveal-hero blur-in mx-auto max-w-2xl text-base md:text-lg text-paper/60 font-sans leading-relaxed"
+			style="--delay: 600ms; --blur-delay: 600ms"
+		>
+			{hero.description}
+		</p>
+
+		<!-- Meta badges -->
+		<div class="reveal-hero blur-in flex flex-wrap items-center justify-center gap-4 text-xs font-mono tracking-widest uppercase text-muted/60" style="--delay: 800ms; --blur-delay: 800ms">
+			<span class="px-3 py-1.5 rounded-full border border-neutral-800/40">{hero.locationMeta}</span>
+			<span class="px-3 py-1.5 rounded-full border border-neutral-800/40">{hero.clientsMeta}</span>
+		</div>
+	</div>
+
+	<!-- Scroll indicator -->
+	<div class="reveal-hero absolute bottom-10 left-1/2 -translate-x-1/2" style="--delay: 1000ms">
+		<div class="w-5 h-8 rounded-full border-2 border-muted/30 flex items-start justify-center p-1">
+			<div class="w-1 h-2 rounded-full bg-muted/50 animate-bounce"></div>
+		</div>
+	</div>
+</section>

@@ -1,0 +1,53 @@
+---
+import { about } from "../data/portfolio";
+---
+
+<section
+	id="about"
+	class="section-padding reveal"
+>
+	<div class="mx-auto max-w-6xl px-6">
+		<!-- Section label -->
+		<p class="reveal-child font-sans text-xs tracking-widest uppercase text-muted mb-4">
+			{about.label}
+		</p>
+
+		<!-- Main content grid -->
+		<div class="glass-container px-8 py-10 md:px-12 md:py-14 grid gap-12 md:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] items-start">
+			<!-- Left: headline + photo -->
+			<div class="space-y-8">
+
+
+				{about.photo && (
+					<div class="reveal-child aspect-[4/5] bg-neutral-900/50 overflow-hidden rounded-xl">
+						<img
+							src={about.photo.src}
+							alt={about.photo.alt}
+							loading="lazy"
+							class="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+						/>
+					</div>
+				)}
+			</div>
+
+			<!-- Right: body paragraphs -->
+			<div class="space-y-6">
+				<h2 class="blur-in font-sans text-2xl md:text-3xl font-semibold tracking-tight text-paper leading-snug mb-2" style="--blur-delay: 0ms">
+					{about.headline}
+				</h2>
+				{about.body.map((paragraph, i) => (
+					<p class="blur-in text-base md:text-lg text-paper/80 font-sans leading-[1.8]" style={`--blur-delay: ${(i + 1) * 200}ms`}>
+						{paragraph}
+					</p>
+				))}
+
+				<!-- Inspirational quote -->
+				<blockquote class="reveal-child border-l-2 border-accent/50 pl-5 mt-8">
+					<p class="text-sm md:text-base text-muted/80 italic font-sans leading-relaxed">
+						"Life is not about waiting for the storm to pass, it's about learning to dance in the rain." - Vivian Greene
+					</p>
+				</blockquote>
+			</div>
+		</div>
+	</div>
+</section>
