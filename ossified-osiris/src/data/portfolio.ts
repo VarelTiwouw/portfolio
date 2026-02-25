@@ -1,7 +1,7 @@
 export const hero = {
   primaryLine: "Varel",
   accentWord: "Tiwouw",
-  secondaryLine: "developer",
+  secondaryLine: "Programmer",
   metaLabel: "Portfolio",
   description:
     "I design and build editorial-grade interfaces, type-driven layouts, and precise digital experiences for brands that care about both design and engineering.",
